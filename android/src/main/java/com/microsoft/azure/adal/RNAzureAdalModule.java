@@ -74,7 +74,9 @@ public class RNAzureAdalModule extends ReactContextBaseJavaModule {
                           String clientId,
                           String redirectUrl,
                           Boolean useBroker) {
-
+        Log.w("configure", authority);
+        Log.w("configure", clientId);
+        Log.w("configure", redirectUrl);
         AuthenticationContext context = new AuthenticationContext(this.reactContext.getApplicationContext(), authority, validateAuthority);
         Configuration configuration = new Configuration(authority, validateAuthority, clientId, redirectUrl, useBroker, context);
         configurations.put(authority, configuration);
@@ -100,6 +102,7 @@ public class RNAzureAdalModule extends ReactContextBaseJavaModule {
             final Promise promise
     ) {
         if (currentConfiguration != null) {
+            Log.w("configure", resourceUrl);
             final Activity activity = getCurrentActivity();
             activity.runOnUiThread(new Runnable() {
                 @Override
@@ -190,6 +193,4 @@ public class RNAzureAdalModule extends ReactContextBaseJavaModule {
         AdalUtils.clearCookies(this.reactContext);
         currentConfiguration.getAuthContext().getCache().removeAll();
     }
-
-
 }

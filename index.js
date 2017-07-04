@@ -6,4 +6,4 @@
 
 import AzureAdal from './src';
 
-module.exports = { AzureAdal };
+export default new AzureAdal();
