@@ -4,11 +4,20 @@ import com.microsoft.aad.adal.PromptBehavior;
 
 public class Constants {
 
+    /**
+     * SHOW_PROMPT_AUTO
+     */
     public static final PromptBehavior SHOW_PROMPT_AUTO = PromptBehavior.Auto;
-    public static final int GET_ACCOUNTS_PERMISSION_REQ_CODE = 0;
-    public static final String PERMISSION_DENIED_ERROR = "Permissions denied";
+
+    /**
+     * SHOW_PROMPT_ALWAYS
+     */
+    public static final PromptBehavior SHOW_PROMPT_ALWAYS = PromptBehavior.Always;
+
+    /**
+     * SECRET_KEY
+     */
     public static final String SECRET_KEY = "com.microsoft.aad.adal";
-    public static final int MODE_PRIVATE = 0;
 
     /**
      * UTF-8 encoding
@@ -25,6 +34,14 @@ public class Constants {
      */
     public static final String ALGORITHM_TYPE = "AES";
 
+    /**
+     * SALT
+     */
     public static final String SALT = "abcdedfdfd";
+
+    /**
+     * TAG
+     */
+    public static final String TAG = "AzureADALPlugin";
 
 }

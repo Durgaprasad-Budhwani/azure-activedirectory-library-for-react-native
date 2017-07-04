@@ -1,6 +1,8 @@
 package com.microsoft.azure.adal;
 
+import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.WritableMap;
+import com.facebook.react.bridge.WritableNativeMap;
 import com.microsoft.aad.adal.AuthenticationResult;
 import com.microsoft.aad.adal.TokenCacheItem;
 import com.microsoft.aad.adal.UserInfo;
@@ -13,96 +15,52 @@ import org.json.JSONObject;
  */
 class UserInfoSerialization {
 
-    /**
-     * Convert UserInfo object to JSON representation
-     *
-     * @param info UserInfo object
-     * @return JSONObject that represents a UserInfo structure
-     * @throws JSONException
-     */
-    public static JSONObject userInfoToJSON(UserInfo info) throws JSONException {
+    public static WritableMap userInfoToWritableMap(UserInfo info) throws Exception {
 
-        JSONObject userInfo = new JSONObject();
+        WritableMap userInfo = Arguments.createMap();
 
         if (info == null) {
             return userInfo;
         }
 
-        userInfo.put("displayableId", info.getDisplayableId());
-        userInfo.put("familyName", info.getFamilyName());
-        userInfo.put("givenName", info.getGivenName());
-        userInfo.put("identityProvider", info.getIdentityProvider());
-        userInfo.put("passwordChangeUrl", info.getPasswordChangeUrl());
-        userInfo.put("passwordExpiresOn", info.getPasswordExpiresOn());
-        userInfo.put("uniqueId", info.getUserId());
-        userInfo.put("userId", info.getUserId());
+        userInfo.putString("displayableId", info.getDisplayableId());
+        userInfo.putString("familyName", info.getFamilyName());
+        userInfo.putString("givenName", info.getGivenName());
+        userInfo.putString("identityProvider", info.getIdentityProvider());
+        userInfo.putString("passwordChangeUrl", String.format("%s", info.getPasswordChangeUrl()));
+        userInfo.putString("passwordExpiresOn", String.format("%s", info.getPasswordExpiresOn()));
+
+        userInfo.putString("uniqueId", info.getUserId());
+        userInfo.putString("userId", info.getUserId());
 
         return userInfo;
     }
 
     /**
-     * Convert AuthenticationResult object to JSON representation. Nested userInfo field is being
-     * serialized as well. In case if userInfo field is not exists in input object it will
-     * be equal to null in resultant object
      *
-     * @param authenticationResult AuthenticationResult object
-     * @return JSONObject that represents a AuthenticationResult structure
-     * @throws JSONException
+     * @param authenticationResult
+     * @return
+     * @throws Exception
      */
-    public static JSONObject authenticationResultToJSON(AuthenticationResult authenticationResult) throws JSONException {
-        JSONObject authResult = new JSONObject();
+    public static WritableMap authenticationResultToWritableMap(AuthenticationResult authenticationResult) throws Exception {
+        WritableMap authResult = Arguments.createMap();
 
-        authResult.put("accessToken", authenticationResult.getAccessToken());
-        authResult.put("accessTokenType", authenticationResult.getAccessTokenType());
-        authResult.put("expiresOn", authenticationResult.getExpiresOn());
-        authResult.put("idToken", authenticationResult.getIdToken());
-        authResult.put("isMultipleResourceRefreshToken", authenticationResult.getIsMultiResourceRefreshToken());
-        authResult.put("statusCode", authenticationResult.getStatus());
-        authResult.put("tenantId", authenticationResult.getTenantId());
+        authResult.putString("accessToken", authenticationResult.getAccessToken());
+        authResult.putString("accessTokenType", authenticationResult.getAccessTokenType());
+        authResult.putString("expiresOn", String.format("%s", authenticationResult.getExpiresOn()));
+        authResult.putString("idToken", authenticationResult.getIdToken());
+        authResult.putBoolean("isMultipleResourceRefreshToken", authenticationResult.getIsMultiResourceRefreshToken());
+        authResult.putString("statusCode", String.format("%s", authenticationResult.getStatus()));
+        authResult.putString("tenantId", authenticationResult.getTenantId());
 
-        JSONObject userInfo = null;
+        WritableMap userInfo = null;
         try {
-            userInfo = userInfoToJSON(authenticationResult.getUserInfo());
-        } catch (JSONException ignored) {
-        }
+            userInfo = userInfoToWritableMap(authenticationResult.getUserInfo());
+        } catch (Exception ignored) {}
 
-        authResult.put("userInfo", userInfo);
+        authResult.putMap("userInfo", userInfo);
 
         return authResult;
     }
 
-    /**
-     * Convert TokenCacheItem object to JSON representation. Nested userInfo field is being
-     * serialized as well. In case if userInfo field is not exists in input object it will
-     * be equal to null in resultant object
-     *
-     * @param item TokenCacheItem object
-     * @return JSONObject that represents a TokenCacheItem structure
-     * @throws JSONException
-     */
-    public static JSONObject tokenItemToJSON(TokenCacheItem item) throws JSONException {
-        JSONObject result = new JSONObject();
-
-        result.put("accessToken", item.getAccessToken());
-        result.put("authority", item.getAuthority());
-        result.put("clientId", item.getClientId());
-        result.put("expiresOn", item.getExpiresOn());
-        result.put("isMultipleResourceRefreshToken", item.getIsMultiResourceRefreshToken());
-        result.put("resource", item.getResource());
-        result.put("tenantId", item.getTenantId());
-        result.put("idToken", item.getRawIdToken());
-
-        JSONObject userInfo = null;
-        try {
-            userInfo = userInfoToJSON(item.getUserInfo());
-        } catch (JSONException ignored) {
-        }
-
-        result.put("userInfo", userInfo);
-
-        return result;
-    }
-
-    public static WritableMap authenticationResultToWritableMap(AuthenticationResult authResult) {
-    }
 }

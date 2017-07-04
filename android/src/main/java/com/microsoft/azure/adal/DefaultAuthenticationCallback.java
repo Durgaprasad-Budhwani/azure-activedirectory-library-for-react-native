@@ -4,21 +4,19 @@
  * See License in the project root for license information.
  ******************************************************************************/
 
-// Modifications by Bjarte Bore to work with React Native instead of Cordova
+// Modifications by Durgaprasad Budhwani to work with React Native instead of Cordova
 
 package com.microsoft.azure.adal;
-
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.WritableMap;
 import com.microsoft.aad.adal.AuthenticationCallback;
 import com.microsoft.aad.adal.AuthenticationResult;
 
-
 /**
  * Class that provides implementation for passing AuthenticationResult from acquireToken* methods
- * to Cordova JS code
+ * to React Native JS code
  */
-class RNDefaultAuthenticationCallback implements AuthenticationCallback<AuthenticationResult> {
+class DefaultAuthenticationCallback implements AuthenticationCallback<AuthenticationResult> {
 
     /**
      * Private field that stores cordova callback context which is used to send results back to JS
@@ -29,12 +27,12 @@ class RNDefaultAuthenticationCallback implements AuthenticationCallback<Authenti
      * Default constructor
      * @param callbackPromise Callback Promise which is used to send results back to JS
      */
-    RNDefaultAuthenticationCallback(Promise callbackPromise){
+    DefaultAuthenticationCallback(Promise callbackPromise){
         this.callbackPromise = callbackPromise;
     }
 
     /**
-     * Success callback that serializes AuthenticationResult instance and passes it to Cordova
+     * Success callback that serializes AuthenticationResult instance and passes it to React Native
      * @param authResult AuthenticationResult instance
      */
     @Override
@@ -42,19 +40,15 @@ class RNDefaultAuthenticationCallback implements AuthenticationCallback<Authenti
 
         WritableMap result;
         try {
-            // TODO
             result = UserInfoSerialization.authenticationResultToWritableMap(authResult);
             this.callbackPromise.resolve(result);
-            //callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, result));
         } catch (Exception e) {
             this.callbackPromise.reject(new Exception("Failed to serialize Authentication result"));
-             //callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.JSON_EXCEPTION,
-             //       "Failed to serialize Authentication result"));
         }
     }
 
     /**
-     * Error callback that passes error to Cordova
+     * Error callback that passes error to React Native
      * @param authException AuthenticationException
      */
     @Override

@@ -28,6 +28,12 @@ android {
 
 repositories {
     mavenCentral()
+    maven {
+        url "$projectDir/../example/node_modules/react-native/android"
+    }
+    maven {
+        url "$projectDir/../../react-native/android"
+    }
 }
 
 dependencies {
