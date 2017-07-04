@@ -73,8 +73,7 @@ public class RNAzureAdalModule extends ReactContextBaseJavaModule {
                           Boolean validateAuthority,
                           String clientId,
                           String redirectUrl,
-                          Boolean useBroker,
-                          Promise promise) {
+                          Boolean useBroker) {
 
         AuthenticationContext context = new AuthenticationContext(this.reactContext.getApplicationContext(), authority, validateAuthority);
         Configuration configuration = new Configuration(authority, validateAuthority, clientId, redirectUrl, useBroker, context);
@@ -116,7 +115,7 @@ public class RNAzureAdalModule extends ReactContextBaseJavaModule {
                             userId = tokensForUserId.get(0).getUserInfo().getDisplayableId();
                         }
                     }
-                    authContext.acquireToken(activity, currentConfiguration.getRedirectUrl(), currentConfiguration.getClientId(),
+                    authContext.acquireToken(activity, resourceUrl, currentConfiguration.getClientId(),
                             currentConfiguration.getRedirectUrl(), userId, forceLogin ? Constants.SHOW_PROMPT_ALWAYS : Constants.SHOW_PROMPT_AUTO,
                             extraQueryParameters, new DefaultAuthenticationCallback(promise));
                 }

@@ -1,6 +1,9 @@
+// import { NativeModules } from 'react-native';
+//
+// const { RNAzureAdal } = NativeModules;
+//
+// export default RNAzureAdal;
 
-import { NativeModules } from 'react-native';
+import AzureAdal from './src';
 
-const { RNAzureAdal } = NativeModules;
-
-export default RNAzureAdal;
+module.exports = { AzureAdal };
