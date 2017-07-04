@@ -30,9 +30,10 @@ export default class AzureAdal extends BaseAzureAdal {
 	  try {
 	    const granted = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.GET_ACCOUNTS);
 	    if (granted === PermissionsAndroid.RESULTS.GRANTED || granted === true) {
-	      resolve(true)
+	      RNAzureAdal.configure(authority, validateAuthority, clientId, redirectUrl, useBroker);
+	      resolve(true);
 	    } else {
-	      reject(PERMISSION_DENIED_ERROR_CODE)
+	      reject(PERMISSION_DENIED_ERROR_CODE);
 	    }
 	  } catch (err) {
 	    console.warn(err)
