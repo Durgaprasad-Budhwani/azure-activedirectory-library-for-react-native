@@ -81,6 +81,11 @@ public class RNAzureAdalModule extends ReactContextBaseJavaModule {
         Configuration configuration = new Configuration(authority, validateAuthority, clientId, redirectUrl, useBroker, context);
         configurations.put(authority, configuration);
         currentConfiguration = configuration;
+
+        // Set the calling app will talk to broker
+        // Note: Starting from version 1.1.14, calling app has to explicitly call
+        // AuthenticationSettings.Instance.setUserBroker(true) to call broker.
+        // AuthenticationSettings.Instance.setSkipBroker(boolean) is already deprecated.
         AuthenticationSettings.INSTANCE.setUseBroker(useBroker);
     }
 

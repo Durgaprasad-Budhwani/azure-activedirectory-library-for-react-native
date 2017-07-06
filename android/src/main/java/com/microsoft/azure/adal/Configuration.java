@@ -17,7 +17,7 @@ public class Configuration {
      * @param clientId          required client identifier.
      * @param redirectUrl       Optional. It will use packagename and provided suffix
      *                          for this.
-     * @param useBroker        True to use broker
+     * @param useBroker         True to use broker
      * @param context           AuthenticationContext
      */
     public Configuration(String authority, Boolean validateAuthority, String clientId, String redirectUrl, Boolean useBroker, AuthenticationContext context) {
