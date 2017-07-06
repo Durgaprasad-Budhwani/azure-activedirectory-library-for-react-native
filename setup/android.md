@@ -1,6 +1,6 @@
-#Android Setup: react-native-azure-adal
+# Android Setup: react-native-azure-adal
 
-##Assumptions
+## Assumptions
 
 You have a Azure AD Setup (TODO - markdown)
 
