@@ -109,7 +109,7 @@ It will generate redirectUri for ADAL broker based authentication
 Output
 
 ```
-msauth://com.example/9maof%2B5SYhc8dc%2Fni%2BFefl6unpw%3D
+msauth://com.example/8BhOF7pgEpduSQKBKziiWZDhIVA%3D
 ```
 
 #### Manual Way
@@ -139,7 +139,7 @@ Create url
 ```bash
 msauth://package_name/encoded_certificate_value
 
-msauth://com.example/9maof%2B5SYhc8dc%2Fni%2BFefl6unpw%3D
+msauth://com.example/8BhOF7pgEpduSQKBKziiWZDhIVA%3D
 ```
 
 
