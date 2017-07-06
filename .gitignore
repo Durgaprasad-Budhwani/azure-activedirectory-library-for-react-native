@@ -42,7 +42,7 @@ local.properties
 # BUCK
 buck-out/
 \.buckd/
-*.keystore
+#*.keystore
 
 
 # OSX
@@ -100,3 +100,4 @@ fastlane/Preview.html
 fastlane/screenshots
 /android/gradlew.bat
 /android/gradlew
+!/example/android/app/azure-example.keystore

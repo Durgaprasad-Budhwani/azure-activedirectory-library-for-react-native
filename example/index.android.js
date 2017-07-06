@@ -62,7 +62,7 @@ export default class example extends Component {
   }
   
   async loginWithBroker() {
-    const redirectUri = "msauth://com.example/9maof%2B5SYhc8dc%2Fni%2BFefl6unpw%3D"; //"x-msauth-awesomeproject://com.varian.awesomeproject"; //
+    const redirectUri = "msauth://com.example/8BhOF7pgEpduSQKBKziiWZDhIVA%3D"; //"msauth://com.example/9maof%2B5SYhc8dc%2Fni%2BFefl6unpw%3D"; //"x-msauth-awesomeproject://com.varian.awesomeproject"; //
     try {
       let isConfigure =  await AzureAdal.configure(authority, false, clientId, redirectUri, true);
       if(isConfigure) {

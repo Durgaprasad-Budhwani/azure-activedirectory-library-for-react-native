@@ -18,7 +18,7 @@ release_password="android"
 android_key_store=
 
 usage() {
-
+    
     echo ""
     echo " This tool generates a ReplyURL you'll need to enter in to your Azure Portal"
     echo " to allow for your app to use the Microsoft Accounts broker app. This will"
@@ -68,7 +68,7 @@ else
 usage
 fi
 
-
+ 
 
 
 
@@ -132,11 +132,11 @@ makeReplyURL() {
 
 # Simple Func() to do release
 makerelease() {
-
+    
     if [ -f "$release_key_store" ]; then
-
+    
         android_key_store=$release_key_store
-
+     
         echo "We are using the following values"
         printf "Package Name: %s\n" $package_name
         printf "Keystore alias: %s\n" $release_alias
@@ -148,20 +148,20 @@ makerelease() {
         makeReplyURL
 
 
-    else
+    else 
     printf "ERROR: The Release Android Key Store location %s was not found. Have you set up Android Studio for Google Play?\n" $android_key_store
-
+  
     fi
 }
 #---------------------------------
 
 # Simple Func() to do debug
 makedebug() {
-
+    
     if [ -f "$debug_key_store" ]; then
-
+    
     android_key_store=$debug_key_store
-
+    
     echo "We are using the following values"
     printf "Package Name: %s\n" $package_name
     printf "Keystore alias: %s\n" $release_alias
@@ -174,9 +174,9 @@ makedebug() {
 
 
 
-    else
+    else 
     printf "ERROR: The Debug Android Key Store location %s was not found. Try deploying your app in debug mode first to generate keys.\n" $android_key_store
-
+  
     fi
 }
 #---------------------------------

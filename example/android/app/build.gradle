@@ -102,6 +102,24 @@ android {
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
+        signingConfigs {
+            debug {
+                if (project.hasProperty('EXAMPLE_RELEASE_STORE_FILE')) {
+                    storeFile file(EXAMPLE_RELEASE_STORE_FILE)
+                    storePassword EXAMPLE_RELEASE_STORE_PASSWORD
+                    keyAlias EXAMPLE_RELEASE_KEY_ALIAS
+                    keyPassword EXAMPLE_RELEASE_KEY_PASSWORD
+                }
+            }
+            release {
+                if (project.hasProperty('EXAMPLE_RELEASE_STORE_FILE')) {
+                    storeFile file(EXAMPLE_RELEASE_STORE_FILE)
+                    storePassword EXAMPLE_RELEASE_STORE_PASSWORD
+                    keyAlias EXAMPLE_RELEASE_KEY_ALIAS
+                    keyPassword EXAMPLE_RELEASE_KEY_PASSWORD
+                }
+            }
+        }
     }
     splits {
         abi {
@@ -115,6 +133,10 @@ android {
         release {
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+            signingConfig signingConfigs.release
+        }
+        debug {
+            signingConfig signingConfigs.debug
         }
     }
     // applicationVariants are e.g. debug, release

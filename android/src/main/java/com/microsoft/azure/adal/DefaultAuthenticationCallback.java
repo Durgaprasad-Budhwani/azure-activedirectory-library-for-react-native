@@ -14,7 +14,7 @@ import com.microsoft.aad.adal.AuthenticationResult;
 
 /**
  * Class that provides implementation for passing AuthenticationResult from acquireToken* methods
- * to React Native JS code
+ * to React Native JS code∫
  */
 class DefaultAuthenticationCallback implements AuthenticationCallback<AuthenticationResult> {
 
