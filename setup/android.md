@@ -143,7 +143,7 @@ msauth://com.example/8BhOF7pgEpduSQKBKziiWZDhIVA%3D
 ```
 
 
-##TroubleShooting
+## TroubleShooting
 
 Receiving issues After an update? Please:
 
