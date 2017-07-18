@@ -7,11 +7,16 @@ import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
 import android.webkit.ValueCallback;
 
+import com.microsoft.aad.adal.AuthenticationContext;
 import com.microsoft.aad.adal.AuthenticationSettings;
+import com.microsoft.aad.adal.ITokenCacheStore;
+import com.microsoft.aad.adal.ITokenStoreQuery;
+import com.microsoft.aad.adal.TokenCacheItem;
 
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
+import java.util.List;
 
 import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
@@ -23,7 +28,6 @@ import javax.crypto.spec.SecretKeySpec;
  */
 
 public class AdalUtils {
-
 
     /**
      * For API version lower than 18, you have to provide the secret key. The secret key
@@ -51,23 +55,20 @@ public class AdalUtils {
     }
 
     /**
-     *
      * @param context application context
      */
     @SuppressWarnings("deprecation")
-    public static void clearCookies(Context context)
-    {
+    public static void clearCookies(Context context) {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
             Log.d(Constants.TAG, "Using clearCookies code for API >=" + String.valueOf(Build.VERSION_CODES.LOLLIPOP_MR1));
             CookieManager.getInstance().removeAllCookies(null);
             CookieManager.getInstance().flush();
-        } else
-        {
+        } else {
             Log.d(Constants.TAG, "Using clearCookies code for API <" + String.valueOf(Build.VERSION_CODES.LOLLIPOP_MR1));
-            CookieSyncManager cookieSyncMngr=CookieSyncManager.createInstance(context);
+            CookieSyncManager cookieSyncMngr = CookieSyncManager.createInstance(context);
             cookieSyncMngr.startSync();
-            CookieManager cookieManager=CookieManager.getInstance();
+            CookieManager cookieManager = CookieManager.getInstance();
             cookieManager.removeAllCookie();
             cookieManager.removeSessionCookie();
             cookieSyncMngr.stopSync();
@@ -75,5 +76,23 @@ public class AdalUtils {
         }
     }
 
+    /**
+     *
+     * @param loginHint
+     * @param authContext
+     * @return
+     */
+    public static String getUserIdFromCache(String loginHint, AuthenticationContext authContext) {
+        String userId = loginHint;
+        ITokenCacheStore cache = authContext.getCache();
+        if (cache instanceof ITokenStoreQuery) {
 
+            List<TokenCacheItem> tokensForUserId = ((ITokenStoreQuery) cache).getTokensForUser(loginHint);
+            if (tokensForUserId.size() > 0) {
+                // Try to acquire alias for specified userId
+                userId = tokensForUserId.get(0).getUserInfo().getDisplayableId();
+            }
+        }
+        return userId;
+    }
 }

@@ -13,12 +13,8 @@ import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.microsoft.aad.adal.AuthenticationContext;
 import com.microsoft.aad.adal.AuthenticationSettings;
-import com.microsoft.aad.adal.ITokenCacheStore;
-import com.microsoft.aad.adal.ITokenStoreQuery;
-import com.microsoft.aad.adal.TokenCacheItem;
 
 import java.util.Hashtable;
-import java.util.List;
 
 public class RNAzureAdalModule extends ReactContextBaseJavaModule {
 
@@ -74,19 +70,12 @@ public class RNAzureAdalModule extends ReactContextBaseJavaModule {
                           String clientId,
                           String redirectUrl,
                           Boolean useBroker) {
+        AuthenticationSettings.INSTANCE.setUseBroker(useBroker);
         Log.w("configure", authority);
-        Log.w("configure", clientId);
-        Log.w("configure", redirectUrl);
         AuthenticationContext context = new AuthenticationContext(this.reactContext.getApplicationContext(), authority, validateAuthority);
         Configuration configuration = new Configuration(authority, validateAuthority, clientId, redirectUrl, useBroker, context);
         configurations.put(authority, configuration);
         currentConfiguration = configuration;
-
-        // Set the calling app will talk to broker
-        // Note: Starting from version 1.1.14, calling app has to explicitly call
-        // AuthenticationSettings.Instance.setUserBroker(true) to call broker.
-        // AuthenticationSettings.Instance.setSkipBroker(boolean) is already deprecated.
-        AuthenticationSettings.INSTANCE.setUseBroker(useBroker);
     }
 
 
@@ -106,23 +95,14 @@ public class RNAzureAdalModule extends ReactContextBaseJavaModule {
             final Boolean forceLogin,
             final Promise promise
     ) {
+        Log.w("configure", resourceUrl);
         if (currentConfiguration != null) {
-            Log.w("configure", resourceUrl);
             final Activity activity = getCurrentActivity();
             activity.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    String userId = loginHint;
                     AuthenticationContext authContext = currentConfiguration.getAuthContext();
-                    ITokenCacheStore cache = authContext.getCache();
-                    if (cache instanceof ITokenStoreQuery) {
-
-                        List<TokenCacheItem> tokensForUserId = ((ITokenStoreQuery) cache).getTokensForUser(loginHint);
-                        if (tokensForUserId.size() > 0) {
-                            // Try to acquire alias for specified userId
-                            userId = tokensForUserId.get(0).getUserInfo().getDisplayableId();
-                        }
-                    }
+                    String userId = AdalUtils.getUserIdFromCache(loginHint, authContext);
                     authContext.acquireToken(activity, resourceUrl, currentConfiguration.getClientId(),
                             currentConfiguration.getRedirectUrl(), userId, forceLogin ? Constants.SHOW_PROMPT_ALWAYS : Constants.SHOW_PROMPT_AUTO,
                             extraQueryParameters, new DefaultAuthenticationCallback(promise));
@@ -150,17 +130,8 @@ public class RNAzureAdalModule extends ReactContextBaseJavaModule {
             activity.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    String userId = loginHint;
                     AuthenticationContext authContext = currentConfiguration.getAuthContext();
-                    ITokenCacheStore cache = authContext.getCache();
-                    if (cache instanceof ITokenStoreQuery) {
-
-                        List<TokenCacheItem> tokensForUserId = ((ITokenStoreQuery) cache).getTokensForUser(loginHint);
-                        if (tokensForUserId.size() > 0) {
-                            // Try to acquire alias for specified userId
-                            userId = tokensForUserId.get(0).getUserInfo().getDisplayableId();
-                        }
-                    }
+                    String userId = AdalUtils.getUserIdFromCache(loginHint, authContext);
                     authContext.acquireTokenSilentAsync(resourceUrl, currentConfiguration.getClientId(),
                             userId, new DefaultAuthenticationCallback(promise));
                 }
@@ -196,6 +167,7 @@ public class RNAzureAdalModule extends ReactContextBaseJavaModule {
         // TODO -- need to make service call to clear cookie
         // https://login.microsoftonline.com/{0}/oauth2/logout?post_logout_redirect_uri={1}
         AdalUtils.clearCookies(this.reactContext);
-        currentConfiguration.getAuthContext().getCache().removeAll();
+        AuthenticationContext authContext = currentConfiguration.getAuthContext();
+        authContext.getCache().removeAll();
     }
 }

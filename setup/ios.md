@@ -39,4 +39,17 @@ pod install
 ```
 
 
+## Caching
+
+iOS
+
+Keychain Setup
+
+Click on your project in the Navigator pane in Xcode. Click on your application target and then the "Capabilities" tab. Scroll down to "Keychain Sharing" and flip the switch on. Add "com.microsoft.adalcache" to that list.
+
+Alternatively you can disable keychain sharing by setting the keychain sharing group to nil. your application's bundle id.
+
+    [[ADAuthenticationSettings sharedInstance] setSharedCacheKeychainGroup:nil];
+
+
 

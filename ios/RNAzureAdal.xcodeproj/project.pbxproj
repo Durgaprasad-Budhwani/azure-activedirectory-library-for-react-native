@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8259E5841F1324A500994551 /* AdalUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 8259E5831F1324A500994551 /* AdalUtils.m */; };
+		8259E5871F132F0A00994551 /* UserInfoSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 8259E5861F132F0A00994551 /* UserInfoSerialization.m */; };
+		82CCC0861F12868300AFB569 /* Configuration.m in Sources */ = {isa = PBXBuildFile; fileRef = 82CCC0851F12868300AFB569 /* Configuration.m */; };
 		B3E7B58A1CC2AC0600A0062D /* RNAzureAdal.m in Sources */ = {isa = PBXBuildFile; fileRef = B3E7B5891CC2AC0600A0062D /* RNAzureAdal.m */; };
 /* End PBXBuildFile section */
 
@@ -24,6 +27,12 @@
 
 /* Begin PBXFileReference section */
 		134814201AA4EA6300B7C361 /* libRNAzureAdal.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRNAzureAdal.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		8259E5821F1324A400994551 /* AdalUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdalUtils.h; sourceTree = "<group>"; };
+		8259E5831F1324A500994551 /* AdalUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdalUtils.m; sourceTree = "<group>"; };
+		8259E5851F132F0A00994551 /* UserInfoSerialization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoSerialization.h; sourceTree = "<group>"; };
+		8259E5861F132F0A00994551 /* UserInfoSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoSerialization.m; sourceTree = "<group>"; };
+		82CCC0841F12868300AFB569 /* Configuration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Configuration.h; sourceTree = "<group>"; };
+		82CCC0851F12868300AFB569 /* Configuration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Configuration.m; sourceTree = "<group>"; };
 		B3E7B5881CC2AC0600A0062D /* RNAzureAdal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNAzureAdal.h; sourceTree = "<group>"; };
 		B3E7B5891CC2AC0600A0062D /* RNAzureAdal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNAzureAdal.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -50,6 +59,12 @@
 		58B511D21A9E6C8500147676 = {
 			isa = PBXGroup;
 			children = (
+				8259E5851F132F0A00994551 /* UserInfoSerialization.h */,
+				8259E5861F132F0A00994551 /* UserInfoSerialization.m */,
+				8259E5821F1324A400994551 /* AdalUtils.h */,
+				8259E5831F1324A500994551 /* AdalUtils.m */,
+				82CCC0841F12868300AFB569 /* Configuration.h */,
+				82CCC0851F12868300AFB569 /* Configuration.m */,
 				B3E7B5881CC2AC0600A0062D /* RNAzureAdal.h */,
 				B3E7B5891CC2AC0600A0062D /* RNAzureAdal.m */,
 				134814211AA4EA7D00B7C361 /* Products */,
@@ -112,7 +127,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				82CCC0861F12868300AFB569 /* Configuration.m in Sources */,
+				8259E5841F1324A500994551 /* AdalUtils.m in Sources */,
 				B3E7B58A1CC2AC0600A0062D /* RNAzureAdal.m in Sources */,
+				8259E5871F132F0A00994551 /* UserInfoSerialization.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -197,10 +215,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				HEADER_SEARCH_PATHS = (
-				"$(inherited)",
+					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/../../../React/**",
 					"$(SRCROOT)/../../react-native/React/**",
+					"$(SRCROOT)/../../node_modules/react-native/React/**",
+					"$(SRCROOT)/../../../ios/Pods/Headers/Public/**",
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-ObjC";
@@ -217,6 +237,8 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/../../../React/**",
 					"$(SRCROOT)/../../react-native/React/**",
+					"$(SRCROOT)/../../node_modules/react-native/React/**",
+					"$(SRCROOT)/../../../ios/Pods/Headers/Public/**",
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-ObjC";
