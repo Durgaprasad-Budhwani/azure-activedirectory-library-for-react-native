@@ -115,7 +115,7 @@ Just submit a pull request!
 
 ## Contact
 
-Drop a main to [durgaprasad.budhwani@gmail.com](mailto:durgaprasad.budhwani@gmail.com)
+Drop a mail to [durgaprasad.budhwani@gmail.com](mailto:durgaprasad.budhwani@gmail.com)
 
 ## Todo
 
