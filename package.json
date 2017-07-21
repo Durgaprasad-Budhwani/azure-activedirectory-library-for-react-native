@@ -7,6 +7,10 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "docs": "./node_modules/.bin/esdoc -c esdoc.json"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Durgaprasad-Budhwani/azure-activedirectory-library-for-react-native.git"
+  },
   "keywords": [
     "react-native"
   ],
