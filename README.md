@@ -2,7 +2,7 @@
 # Active Directory Authentication Library (ADAL) plugin for React Native apps
 
 Active Directory Authentication Library ([ADAL](https://msdn.microsoft.com/en-us/library/azure/jj573266.aspx)) plugin provides easy to use authentication functionality for your React Native apps by taking advantage of Windows Server Active Directory and Windows Azure Active Directory.
-This library is inspired by and 
+
 
 ## Inspired By
 1. [ADAL for Cordova](https://github.com/AzureAD/azure-activedirectory-library-for-cordova/)
@@ -118,6 +118,8 @@ Drop a main to [durgaprasad.budhwani@gmail.com](mailto:durgaprasad.budhwani@gmai
 
 - [ ] Integrate Azure AD Log
 - [ ] Handle token caching in better way
+- [ ] Unit Test Case
+- [ ] Code Quality Integration tool - Eslint and Flow
 
 ## Copyright and license
 
