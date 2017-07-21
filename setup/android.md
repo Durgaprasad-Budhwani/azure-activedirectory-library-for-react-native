@@ -2,7 +2,10 @@
 
 ## Assumptions
 
-You have a Azure AD Setup (TODO - markdown)
+You have a Azure AD Setup
+
+You can find detailed instructions how to set up a new application in Azure AD [here](https://github.com/AzureADSamples/NativeClient-MultiTarget-DotNet#step-4--register-the-sample-with-your-azure-active-directory-tenant).
+
 
 ## Step 1
 
@@ -39,7 +42,7 @@ OR
       compile project(':react-native-azure-adal')
   	```
 
-## AndroidManifest.xml Changes
+## Step 3 AndroidManifest.xml Changes
 Update your project's AndroidManifest.xml file to include:
 
 ```xml
@@ -63,7 +66,7 @@ Update your project's AndroidManifest.xml file to include:
 <application/>
 ```
 
-## Broker Based Authentication
+## Step 4 Broker Based Authentication (if Required)
 
 ### AndroidManifest.xml Changes
 
@@ -142,6 +145,7 @@ msauth://package_name/encoded_certificate_value
 msauth://com.example/8BhOF7pgEpduSQKBKziiWZDhIVA%3D
 ```
 
+---
 
 ## TroubleShooting
 
