@@ -38,7 +38,7 @@ export default class AzureAdal {
    * It will internally call acquireTokenSilentAsync of azure ad authentication context
    * Note:- One time logged in required
    * @param resourceUrl
-   * @returns {*}
+   * @returns Promise
    */
   getTokenAsync (resourceUrl: String) {
     return RNAzureAdal.acquireTokenSilentAsync(resourceUrl, null);
