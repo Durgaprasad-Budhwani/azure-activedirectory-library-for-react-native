@@ -16,8 +16,8 @@ This library is inspired by and
 
 ## Table of contents
 - [Project setup and initialization](#project-setup-and-initialization)
-- [Usage](#U=usage)
-- [Example project](https://github.com/Durgaprasad-Budhwani/azure-activedirectory-library-for-react-native/tree/master/example)
+- [Usage](#usage)
+- [Example project](#example-project)
 - [Contributing](#contributing)
 - [Contact](#contact)
 - [TODO](#todo)
@@ -31,30 +31,30 @@ See [Android guide](setup/android.md) and [iOS guide](setup/ios.md)
 
 ### Import
 
-```javascript
-	import AzureAdal from 'react-native-azure-adal';
+```bash
+import AzureAdal from 'react-native-azure-adal';
 ```
 
 ### Public API  
 
 1. **Configure**
 
-	```js
+	```javascript
 	/**
-   *
-   * @param authority
-   * @param validateAuthority
-   * @param clientId
-   * @param redirectUrl
-   * @param useBroker if true, it will try to use broker based authentication only if broker is present
-   */
-  configure (authority: String, validateAuthority: Boolean, clientId: String,
+     *
+    * @param authority
+    * @param validateAuthority
+    * @param clientId
+    * @param redirectUrl
+    * @param useBroker if true, it will try to use broker based authentication only if broker is present
+    */
+    configure (authority: String, validateAuthority: Boolean, clientId: String,
 	     redirectUrl: String, useBroker: Boolean)
 	```
 	
 2. 	**Login**
 
-	```js
+	```javascript
 	/**
    * let the user signin with azure ad credentials into your application,
    * if already logged in, it will not ask credentials again
@@ -68,43 +68,43 @@ See [Android guide](setup/android.md) and [iOS guide](setup/ios.md)
 	
 3. **login With LoginPrompt**
 
-	```js
+	```javascript
 	/**
-   * Prompt the modal to let the user signin with azure ad credentials into your application
-   * @param resourceUrl
-   * @param loginHint
-   * @param extraQueryParameters
-   * @returns Promise
-   */
-   loginWithPrompt (resourceUrl: String, loginHint: String, extraQueryParameters: String)
+    * Prompt the modal to let the user signin with azure ad credentials into your application
+    * @param resourceUrl
+    * @param loginHint
+    * @param extraQueryParameters
+    * @returns Promise
+    */
+    l oginWithPrompt (resourceUrl: String, loginHint: String, extraQueryParameters: String)
 	```
 	
 4. **Get Token**
 
-	```js
+	```javascript
 	/**
-   * It will return you token
-   * It will internally call acquireTokenSilentAsync of azure ad authentication context
-   * Note:- One time logged in required
-   * @param resourceUrl
-   * @returns Promise
-   */
-   getTokenAsync (resourceUrl: String)
+    * It will return you token
+    * It will internally call acquireTokenSilentAsync of azure ad authentication context
+    * Note:- One time logged in required
+    * @param resourceUrl
+    * @returns Promise
+    */  
+    getTokenAsync (resourceUrl: String)
 	```
 	
 5. **Logout**
 
-	```js
-	/**
-   * Sign out from your application
-   */
-   logout ()
+	```javascript
+    /**
+    * Sign out from your application
+    */
+    logout ()
 	```
 	
 *Please refer example project for more details*	
 ## Example project
 
-See the (example)[https://github.com/Durgaprasad-Budhwani/azure-activedirectory-library-for-react-native/tree/master/example] project for a working example.
+See the [example](https://github.com/Durgaprasad-Budhwani/azure-activedirectory-library-for-react-native/tree/master/example) project for a working example.
 
 ## Contributing
 
