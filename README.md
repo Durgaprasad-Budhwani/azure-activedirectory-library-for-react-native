@@ -56,14 +56,13 @@ import AzureAdal from 'react-native-azure-adal';
 
 	```javascript
 	/**
-   * let the user signin with azure ad credentials into your application,
-   * if already logged in, it will not ask credentials again
-   * @param resourceUrl
-   * @param loginHint
-   * @param extraQueryParameters
-   * @returns Promise
-   */
-   login (resourceUrl: String, loginHint: String, extraQueryParameters: String)
+    * let the user signin with azure ad credentials into your application,
+    * if already logged in, it will not ask credentials again
+    * @param resourceUrl
+    * @param loginHint
+    * @par  urns Promise
+    */
+    login (resourceUrl: String, loginHint: String, extraQueryParameters: String)
 	```
 	
 3. **login With LoginPrompt**
