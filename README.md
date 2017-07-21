@@ -60,7 +60,8 @@ import AzureAdal from 'react-native-azure-adal';
     * if already logged in, it will not ask credentials again
     * @param resourceUrl
     * @param loginHint
-    * @par  urns Promise
+    * @param extraQueryParameters
+    * @returns Promise
     */
     login (resourceUrl: String, loginHint: String, extraQueryParameters: String)
 	```
@@ -75,7 +76,7 @@ import AzureAdal from 'react-native-azure-adal';
     * @param extraQueryParameters
     * @returns Promise
     */
-    l oginWithPrompt (resourceUrl: String, loginHint: String, extraQueryParameters: String)
+    loginWithPrompt (resourceUrl: String, loginHint: String, extraQueryParameters: String)
 	```
 	
 4. **Get Token**
