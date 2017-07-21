@@ -15,13 +15,13 @@ This library is inspired by and
 - Easy to configure and Use
 
 ## Table of contents
-- [Project setup and initialization](#Project setup and initialization)
-- [Usage](#Usage)
+- [Project setup and initialization](#project-setup-and-initialization)
+- [Usage](#U=usage)
 - [Example project](https://github.com/Durgaprasad-Budhwani/azure-activedirectory-library-for-react-native/tree/master/example)
-- [Contributing](#Contributing)
-- [Contact](#Contact)
-- [TODO](#TODO)
-- [Copyright and license](#Copyright and license)
+- [Contributing](#contributing)
+- [Contact](#contact)
+- [TODO](#todo)
+- [Copyright and license](#copyright-and-license)
 
 ## Project setup and initialization
 
@@ -112,7 +112,7 @@ Just submit a pull request!
 
 ## Contact
 
-Drop a main to (durgaprasad.budhwani@gmail.com)[mailto:durgaprasad.budhwani@gmail.com]
+Drop a main to [durgaprasad.budhwani@gmail.com](mailto:durgaprasad.budhwani@gmail.com)
 
 ## Todo
 
@@ -121,4 +121,4 @@ Drop a main to (durgaprasad.budhwani@gmail.com)[mailto:durgaprasad.budhwani@gmai
 
 ## Copyright and license
 
-Code released under the (Apache License)[https://www.apache.org/licenses/LICENSE-2.0].
+Code released under the [Apache License](https://www.apache.org/licenses/LICENSE-2.0).
