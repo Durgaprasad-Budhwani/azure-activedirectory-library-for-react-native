@@ -166,54 +166,38 @@ RCT_REMAP_METHOD(acquireTokenSilentAsync,
     }
 }
 
-/**
- *  Clear Cache
- */
 RCT_REMAP_METHOD(clearCoockieAndCache,
                  resolver:(RCTPromiseResolveBlock)resolve
                  rejecter:(RCTPromiseRejectBlock)reject){
-    if(currentConfiguration){
-        @try {
+    @try {
+        ADKeychainTokenCache* cacheStore = [ADKeychainTokenCache new];
 
-            ADAuthenticationContext* authContext = [currentConfiguration getAuthContext];
-            ADKeychainTokenCache* cacheStore = [ADKeychainTokenCache new];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            ADAuthenticationError *error;
+            //get all items from cache
+            NSArray *cacheItems = [cacheStore allItems:&error];
 
-            dispatch_async(dispatch_get_main_queue(), ^{
-                ADAuthenticationError *error;
-                //get all items from cache
-                NSArray *cacheItems = [cacheStore allItems:&error];
+
+            if (error != nil)
+            {
+                @throw(error);
+            }
+            for (ADTokenCacheItem*  item in cacheItems)
+            {
+                [cacheStore removeItem:item error: &error];
 
                 if (error != nil)
                 {
                     @throw(error);
                 }
-                for (ADTokenCacheItem*  item in cacheItems)
-                {
-                    if ([currentConfiguration.authority isEqualToString:[item authority]]
-                        && [currentConfiguration.clientId isEqualToString:[item clientId]]
-                        ) {
+            }
+            resolve(@"success");
+        });
 
-                        //remove item
-                        [cacheStore removeItem:item error: &error];
-
-                        if (error != nil)
-                        {
-                            @throw(error);
-                        }
-                    }
-
-                }
-                resolve(@"success");
-            });
-
-        }
-        @catch (ADAuthenticationError *error)
-        {
-            reject( [[NSString alloc] initWithFormat:@"%d", error.code], error.errorDetails, error );
-        }
     }
-    else {
-        notConfigureError(reject);
+    @catch (ADAuthenticationError *error)
+    {
+        reject( [[NSString alloc] initWithFormat:@"%d", error.code], error.errorDetails, error );
     }
 }
 

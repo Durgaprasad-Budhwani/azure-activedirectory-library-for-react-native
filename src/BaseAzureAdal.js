@@ -46,9 +46,15 @@ export default class AzureAdal {
   
   /**
    * Sign out from your application
+   * @returns Promise
    */
-  logout () {
-    RNAzureAdal.clearCoockieAndCache();
+  logout (redirectUri) {
+      RNAzureAdal.clearCoockieAndCache();
+      const promise = fetch(
+          "https://login.windows.net/common/oauth2/logout?post_logout_redirect_uri=" +
+          redirectUri
+      ).then(response => true);
+      return promise;
   }
   
   /**
