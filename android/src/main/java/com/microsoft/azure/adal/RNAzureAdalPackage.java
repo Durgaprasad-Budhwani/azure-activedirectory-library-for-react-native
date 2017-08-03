@@ -18,10 +18,11 @@ public class RNAzureAdalPackage implements ReactPackage {
       return Arrays.<NativeModule>asList(new RNAzureAdalModule(reactContext));
     }
 
-    @Override
-    public List<Class<? extends JavaScriptModule>> createJSModules() {
-      return Collections.emptyList();
-    }
+    // TODO -- this is not required from version 0.46.2
+//     @Override
+//     public List<Class<? extends JavaScriptModule>> createJSModules() {
+//       return Collections.emptyList();
+//     }
 
     @Override
     public List<ViewManager> createViewManagers(ReactApplicationContext reactContext) {
