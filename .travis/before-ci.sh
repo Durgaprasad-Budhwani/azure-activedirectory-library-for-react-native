@@ -6,9 +6,10 @@ case "${TRAVIS_OS_NAME}" in
   ;;
   linux)
     android list targets
-    echo "no" | android create avd --force -n test -t android-23 --abi armeabi-v7a --skin WVGA800 --device "Nexus 5" --sdcard 512M
-    echo "no" | avdmanager create avd --force -n test -t android-23 --abi armeabi-v7a --skin WVGA800 --device "Nexus 5" --sdcard 512M
+    sdkmanager "system-images;android-23;google_apis;x86"
+    avdmanager avdmanager create avd -n test --abi armeabi-v7a --sdcard 512M -f -k "system-images;android-23;google_apis;x86"
     android list targets
+    emulator -list-avds
     emulator -avd test -scale 96dpi -dpi-device 160 -no-audio -no-window &
     android-wait-for-emulator
     sleep 60
