@@ -20,7 +20,7 @@
     "android:devices": "$ANDROID_HOME/platform-tools/adb devices",
     "android:logcat": "$ANDROID_HOME/platform-tools/adb logcat *:S ReactNative:V ReactNativeJS:V",
     "android:shake": "$ANDROID_HOME/platform-tools/adb devices | grep '\\t' | awk '{print $1}' | sed 's/\\s//g' | xargs -I {} $ANDROID_HOME/platform-tools/adb -s {} shell input keyevent 82",
-    "build:ios": "cd ios && xcodebuild build -project example.xcodeproj -scheme example -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO OTHER_LDFLAGS='$(inherited) -ObjC -lc++' -destination 'platform=iOS Simulator,name=iPhone 6' -configuration Release -derivedDataPath build",
+    "build:ios": "cd ios && xcodebuild build -workspace example.xcworkspace -scheme example -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO OTHER_LDFLAGS='$(inherited) -ObjC -lc++' -destination 'platform=iOS Simulator,name=iPhone 6' -configuration Release -derivedDataPath build",
     "flow": "flow --show-all-errors"
   },
   "dependencies": {
