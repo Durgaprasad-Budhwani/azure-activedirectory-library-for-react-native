@@ -6,7 +6,7 @@ case "${TRAVIS_OS_NAME}" in
   ;;
   linux)
     android list targets
-    sdkmanager "system-images;android-23;google_apis;x86" --licenses
+    yes | sdkmanager "system-images;android-23;google_apis;x86"
     avdmanager avdmanager create avd -n test --abi armeabi-v7a --sdcard 512M -f -k "system-images;android-23;google_apis;x86"
     android list targets
     emulator -list-avds
