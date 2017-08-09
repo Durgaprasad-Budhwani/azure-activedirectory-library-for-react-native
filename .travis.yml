@@ -28,7 +28,13 @@ cache:
     - example/node_modules
 
 before_cache: .travis/before-cache.sh
-before_install: . .travis/before-install.sh
+before_install:
+  - chmod +x .travis/before-install.sh
+  - chmod +x .travis/before-ci.sh
+  - chmod +x .travis/install.sh
+  - chmod +x .travis/ci.sh
+  - . .travis/before-install.sh
 install: .travis/install.sh
 before_script: .travis/before-ci.sh
 script: .travis/ci.sh
+
