@@ -14,6 +14,7 @@ init_new_example_project() {
     App
     android/app/build.gradle
     android/build.gradle
+    ios/Podfile
     src
     scripts
     __tests__
