@@ -5,13 +5,14 @@ case "${TRAVIS_OS_NAME}" in
     example_tmp/node_modules/.bin/appium --session-override > appium.out &
   ;;
   linux)
-    android list avd
+    android list targets
     touch /home/travis/.android/repositories.cfg
     touch "$ANDROID_SDK/licenses/android-sdk-license"
     echo -e "\n8933bad161af4178b1185d1a37fbf41ea5269c55" > "$ANDROID_SDK/licenses/android-sdk-license"
     echo y | sdkmanager --verbose "system-images;android-25;google_apis;x86"
-    echo "no" | android create avd -n test --sdcard 512M -f -p "system-images;android-25;google_apis;x86"
-    android list avd
+    echo "no" | avdmanager create avd -n test --sdcard 512M -f -k "system-images;android-25;google_apis;x86"
+    echo "no" | android create avd -n test --sdcard 512M -f -k "system-images;android-25;google_apis;x86"
+    android -list-avd
     emulator -list-avds
     emulator -avd test -scale 96dpi -dpi-device 160 -no-audio -no-window
     android-wait-for-emulator

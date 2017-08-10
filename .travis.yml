@@ -11,9 +11,10 @@ matrix:
         components:
           - platform-tools
           - tools
-          - build-tools-23.0.1
-          - android-23
-          - sys-img-armeabi-v7a-android-23
+          - tools/bin
+          - build-tools-25.0.1
+          - android-25
+          - sys-img-armeabi-v7a-android-25
           - extra-android-m2repository
           - extra-google-m2repository
           - extra-google-google_play_services
