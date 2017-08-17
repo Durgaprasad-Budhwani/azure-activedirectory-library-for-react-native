@@ -43,23 +43,23 @@ RCT_REMAP_METHOD(configure,
         {
             configurations = [NSMutableDictionary dictionaryWithCapacity:1];
         }
-
+        
         if (error != nil)
         {
             @throw(error);
         }
-
+        
         Configuration *configuration = [Configuration configurationWithAuthority:authority
                                                                validateAuthority:validateAuthority
                                                                         clientId:clientId
                                                                      redirectUrl:redirectUrl
                                                                        useBroker:useBroker
                                                                      authContext:authContext];
-
+        
         currentConfiguration = configuration;
         [configurations setObject:configuration forKey:authority];
         resolve( @"success" );
-
+        
     }
     @catch (ADAuthenticationError *error)
     {
@@ -82,34 +82,34 @@ RCT_REMAP_METHOD(acquireTokenAsync,
                  forceLogin:(BOOL) forceLogin
                  resolver:(RCTPromiseResolveBlock)resolve
                  rejecter:(RCTPromiseRejectBlock)reject ){
-
+    
     if(currentConfiguration){
         @try{
             NSURL *urlRedirectUri = [NSURL URLWithString:currentConfiguration.redirectUrl];
             ADAuthenticationContext* authContext = [currentConfiguration getAuthContext];
             NSString* userId = [AdalUtils GetUserIdFromCache:loginHint authContext:authContext];
-
+            
             // `x-msauth-` redirect url prefix means we should use brokered authentication
             // https://github.com/AzureAD/azure-activedirectory-library-for-objc#brokered-authentication
             authContext.credentialsType = (urlRedirectUri.scheme && [urlRedirectUri.scheme hasPrefix: @"x-msauth-"]) ? AD_CREDENTIALS_AUTO : AD_CREDENTIALS_EMBEDDED;
-
+            
             dispatch_async(dispatch_get_main_queue(), ^{
                 [authContext
-                        acquireTokenWithResource:resourceUrl
-                                        clientId:currentConfiguration.clientId
-                                     redirectUri:urlRedirectUri
-                                  promptBehavior:forceLogin ? AD_FORCE_PROMPT : AD_PROMPT_AUTO
-                                          userId:userId
-                            extraQueryParameters:extraQueryParameters
-                                 completionBlock:^(ADAuthenticationResult *result) {
-
-                                     NSMutableDictionary *msg = [UserInfoSerialization AuthenticationResultToDictionary: result];
-                                     if ( AD_SUCCEEDED != result.status ) {
-                                         reject( [[NSString alloc] initWithFormat:@"%d", result.error.code], result.error.errorDetails, result.error );
-                                     } else {
-                                         resolve(msg);
-                                     }
-                                 }];
+                 acquireTokenWithResource:resourceUrl
+                 clientId:currentConfiguration.clientId
+                 redirectUri:urlRedirectUri
+                 promptBehavior:forceLogin ? AD_FORCE_PROMPT : AD_PROMPT_AUTO
+                 userId:userId
+                 extraQueryParameters:extraQueryParameters
+                 completionBlock:^(ADAuthenticationResult *result) {
+                     
+                     NSMutableDictionary *msg = [UserInfoSerialization AuthenticationResultToDictionary: result];
+                     if ( AD_SUCCEEDED != result.status ) {
+                         reject( [[NSString alloc] initWithFormat:@"%d", result.error.code], result.error.errorDetails, result.error );
+                     } else {
+                         resolve(msg);
+                     }
+                 }];
             });
         }
         @catch (ADAuthenticationError *error)
@@ -133,20 +133,20 @@ RCT_REMAP_METHOD(acquireTokenSilentAsync,
                  loginHint:(NSString *) loginHint
                  resolver:(RCTPromiseResolveBlock)resolve
                  rejecter:(RCTPromiseRejectBlock)reject ) {
-
+    
     if(currentConfiguration){
         @try {
             ADAuthenticationContext* authContext = [currentConfiguration getAuthContext];
             NSString* userId = [AdalUtils GetUserIdFromCache:loginHint authContext:authContext];
-
+            NSURL *urlRedirectUri = [NSURL URLWithString:currentConfiguration.redirectUrl];
             dispatch_async(dispatch_get_main_queue(), ^{
                 [authContext acquireTokenSilentWithResource:resourceUrl
                                                    clientId:currentConfiguration.clientId
-                                                redirectUri:nil
+                                                redirectUri:urlRedirectUri
                                                      userId:userId
                                             completionBlock:^(ADAuthenticationResult *result) {
                                                 NSMutableDictionary *msg = [UserInfoSerialization AuthenticationResultToDictionary:result];
-
+                                                
                                                 if (AD_SUCCEEDED != result.status) {
                                                     reject([[NSString alloc] initWithFormat:@"%d", result.error.code], result.error.errorDetails, result.error);
                                                 } else {
@@ -154,7 +154,7 @@ RCT_REMAP_METHOD(acquireTokenSilentAsync,
                                                 }
                                             }];
             });
-
+            
         }
         @catch (ADAuthenticationError *error)
         {
@@ -166,18 +166,20 @@ RCT_REMAP_METHOD(acquireTokenSilentAsync,
     }
 }
 
+
+
 RCT_REMAP_METHOD(clearCoockieAndCache,
                  resolver:(RCTPromiseResolveBlock)resolve
                  rejecter:(RCTPromiseRejectBlock)reject){
     @try {
         ADKeychainTokenCache* cacheStore = [ADKeychainTokenCache new];
-
+        
         dispatch_async(dispatch_get_main_queue(), ^{
             ADAuthenticationError *error;
             //get all items from cache
             NSArray *cacheItems = [cacheStore allItems:&error];
-
-
+            
+            
             if (error != nil)
             {
                 @throw(error);
@@ -185,7 +187,7 @@ RCT_REMAP_METHOD(clearCoockieAndCache,
             for (ADTokenCacheItem*  item in cacheItems)
             {
                 [cacheStore removeItem:item error: &error];
-
+                
                 if (error != nil)
                 {
                     @throw(error);
@@ -193,7 +195,7 @@ RCT_REMAP_METHOD(clearCoockieAndCache,
             }
             resolve(@"success");
         });
-
+        
     }
     @catch (ADAuthenticationError *error)
     {
