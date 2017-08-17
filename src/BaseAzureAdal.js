@@ -40,8 +40,8 @@ export default class AzureAdal {
    * @param resourceUrl
    * @returns Promise
    */
-  getTokenAsync (resourceUrl: String) {
-    return RNAzureAdal.acquireTokenSilentAsync(resourceUrl, null);
+  getTokenAsync (resourceUrl: String, loginHint:String) {
+    return RNAzureAdal.acquireTokenSilentAsync(resourceUrl, loginHint);
   }
   
   /**
