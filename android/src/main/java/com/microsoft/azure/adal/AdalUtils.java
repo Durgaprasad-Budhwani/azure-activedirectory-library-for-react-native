@@ -43,15 +43,28 @@ public class AdalUtils {
      * @throws InvalidKeySpecException
      * @throws UnsupportedEncodingException
      */
-    public static void SetupKey() throws NoSuchAlgorithmException,
-            InvalidKeySpecException, UnsupportedEncodingException {
+    public static void SetupKey()  {
         if (AuthenticationSettings.INSTANCE.getSecretKeyData() == null) {
             // use same key for tests
+            AuthenticationSettings.INSTANCE.setSecretKey(getADALSecretKey());
+        }
+    }
+
+    /**
+     * It returns ADAL Secret Key
+     * @return
+     */
+    public static byte[] getADALSecretKey() {
+        try{
             SecretKeyFactory keyFactory = SecretKeyFactory.getInstance(Constants.SECRET_FACTORY_INSTANCE_ID);
             SecretKey tempkey = keyFactory.generateSecret(new PBEKeySpec(Constants.SECRET_KEY.toCharArray(), Constants.SALT.getBytes(Constants.UTF8_ENCODING), 100, 256));
             SecretKey secretKey = new SecretKeySpec(tempkey.getEncoded(), Constants.ALGORITHM_TYPE);
-            AuthenticationSettings.INSTANCE.setSecretKey(secretKey.getEncoded());
+            return secretKey.getEncoded();
         }
+        catch (Exception e){
+            Log.w("RNAzureAdalModule", "Unable to create secret key: " + e.getMessage());
+        }
+        return null;
     }
 
     /**
