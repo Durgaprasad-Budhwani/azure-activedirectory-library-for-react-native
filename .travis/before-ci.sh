@@ -6,12 +6,13 @@ case "${TRAVIS_OS_NAME}" in
   ;;
   linux)
     android list targets
-    touch /home/travis/.android/repositories.cfg
-    touch "$ANDROID_SDK/licenses/android-sdk-license"
-    echo -e "\n8933bad161af4178b1185d1a37fbf41ea5269c55" > "$ANDROID_SDK/licenses/android-sdk-license"
+    android list avd
+    android list sdk --extended --no-ui --all
+    echo "y" | android update sdk -a --no-ui --filter sys-img-armeabi-v7a-android-25,sys-img-x86_64-android-25   
     echo y | sdkmanager --verbose "system-images;android-25;google_apis;x86"
-    echo "no" | android -v create avd -t "android-25" -n test --sdcard 512M -f
-    android -list-avd
+    echo "n" | android create avd -t "android-25" -n test --abi "default/armeabi-v7a
+    android list targets
+    android list avd
     emulator -list-avds
     emulator -avd test -scale 96dpi -dpi-device 160 -no-audio -no-window
     android-wait-for-emulator
