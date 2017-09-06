@@ -6,6 +6,7 @@ case "${TRAVIS_OS_NAME}" in
   ;;
   linux)
     android list targets
+    echo "android list avd"
     android list avd
     android list sdk --extended --no-ui --all
     echo "y" | android update sdk -a --no-ui --filter sys-img-armeabi-v7a-android-25,sys-img-x86_64-android-25   
