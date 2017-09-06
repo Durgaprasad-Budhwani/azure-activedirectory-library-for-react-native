@@ -7,6 +7,6 @@ case "${TRAVIS_OS_NAME}" in
   ;;
   linux)
     cd example_tmp
-    npm run android:build
+    cd android && ./gradlew assembleRelease
   ;;
 esac
