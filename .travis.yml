@@ -36,6 +36,5 @@ before_install:
   - chmod +x .travis/ci.sh
   - . .travis/before-install.sh
 install: .travis/install.sh
-before_script: .travis/before-ci.sh
 script: .travis/ci.sh
 
