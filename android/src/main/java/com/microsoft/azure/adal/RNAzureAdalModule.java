@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.util.Log;
 
+//import com.facebook.react.bridge.BaseActivityEventListener;
 import com.facebook.react.bridge.BaseActivityEventListener;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -72,7 +73,7 @@ public class RNAzureAdalModule extends ReactContextBaseJavaModule {
                           Boolean useBroker) {
         AuthenticationSettings.INSTANCE.setUseBroker(useBroker);
         Log.w("configure", authority);
-        AuthenticationContext context = new AuthenticationContext(this.reactContext.getApplicationContext(), authority, validateAuthority);
+        AuthenticationContext context = new AuthenticationContext(this.reactContext.getCurrentActivity(), authority, validateAuthority);
         Configuration configuration = new Configuration(authority, validateAuthority, clientId, redirectUrl, useBroker, context);
         configurations.put(authority, configuration);
         currentConfiguration = configuration;
@@ -104,6 +105,40 @@ public class RNAzureAdalModule extends ReactContextBaseJavaModule {
                     AuthenticationContext authContext = currentConfiguration.getAuthContext();
                     String userId = AdalUtils.getUserIdFromCache(loginHint, authContext);
                     authContext.acquireToken(activity, resourceUrl, currentConfiguration.getClientId(),
+                            currentConfiguration.getRedirectUrl(), userId, forceLogin ? Constants.SHOW_PROMPT_ALWAYS : Constants.SHOW_PROMPT_AUTO,
+                            extraQueryParameters, new DefaultAuthenticationCallback(promise));
+                }
+            });
+        } else {
+            promise.reject(new Exception("Initialized Configure() method"));
+        }
+    }
+
+    /**
+     * @param resourceUrl          required resource identifier.
+     * @param loginHint            Optional if validateAuthority == null. It is used for cache and as a loginhint at
+     *                             authentication.
+     * @param extraQueryParameters Optional. added to authorization url
+     * @param forceLogin           Optional. if true then it will show login windows
+     * @param promise              Callback Promise which is used to send results back to JS
+     */
+    @ReactMethod
+    public void acquireInteractiveTokenAsync(
+            final String resourceUrl,
+            final String loginHint,
+            final String extraQueryParameters,
+            final Boolean forceLogin,
+            final Promise promise
+    ) {
+        Log.w("configure", resourceUrl);
+        if (currentConfiguration != null) {
+            final Activity activity = getCurrentActivity();
+            activity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    AuthenticationContext authContext = currentConfiguration.getAuthContext();
+                    String userId = AdalUtils.getUserIdFromCache(loginHint, authContext);
+                    authContext.acquireToken(resourceUrl, currentConfiguration.getClientId(),
                             currentConfiguration.getRedirectUrl(), userId, forceLogin ? Constants.SHOW_PROMPT_ALWAYS : Constants.SHOW_PROMPT_AUTO,
                             extraQueryParameters, new DefaultAuthenticationCallback(promise));
                 }
