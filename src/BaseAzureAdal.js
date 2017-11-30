@@ -41,7 +41,7 @@ export default class AzureAdal {
    * @param loginHint
    * @returns Promise
    */
-  getTokenAsync (resourceUrl: String, loginHint:String) {
+  getTokenAsync (resourceUrl: String, loginHint: String) {
     return RNAzureAdal.acquireTokenSilentAsync(resourceUrl, loginHint);
   }
   
@@ -49,13 +49,13 @@ export default class AzureAdal {
    * Sign out from your application
    * @returns Promise
    */
-  logout (redirectUri) {
-      RNAzureAdal.clearCoockieAndCache();
-      const promise = fetch(
-          "https://login.windows.net/common/oauth2/logout?post_logout_redirect_uri=" +
-          redirectUri
-      ).then(response => true);
-      return promise;
+  async logout (redirectUri) {
+    await RNAzureAdal.clearCoockieAndCache();
+    const promise = fetch(
+      "https://login.windows.net/common/oauth2/logout?post_logout_redirect_uri=" +
+      redirectUri
+    ).then(response => true);
+    return promise;
   }
   
   /**
