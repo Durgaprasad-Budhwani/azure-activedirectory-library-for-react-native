@@ -45,5 +45,16 @@ export default class AzureAdal extends BaseAzureAdal {
 	}
       })
   }
+  
+  /**
+   * Prompt the modal to let the user signin with azure ad credentials into your application
+   * @param resourceUrl
+   * @param loginHint
+   * @param extraQueryParameters
+   * @returns Promise
+   */
+  loginWithPromptInteractive (resourceUrl: String, loginHint: String, extraQueryParameters: String) {
+    return RNAzureAdal.acquireInteractiveTokenAsync(resourceUrl, loginHint, extraQueryParameters, true);
+  }
 }
 
