@@ -23,7 +23,7 @@ export default class AzureAdal extends BaseAzureAdal {
      */
     configure (authority: String, validateAuthority: Boolean, clientId: String,
                redirectUrl: String, useBroker: Boolean) {
-        RNAzureAdal.configure(authority, validateAuthority, clientId, redirectUrl, useBroker);
+        return RNAzureAdal.configure(authority, validateAuthority, clientId, redirectUrl, useBroker);
     }
 }
 
