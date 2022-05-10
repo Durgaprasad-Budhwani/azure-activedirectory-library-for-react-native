@@ -17,7 +17,7 @@
   "author": "Durgaprasad Budhwani",
   "license": "Apache 2.0",
   "peerDependencies": {
-    "react-native": "^0.47.0"
+    "react-native": "0.68.1"
   },
   "devDependencies": {
     "esdoc": "^0.5.2"
